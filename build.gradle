@@ -22,3 +22,8 @@ test {
 application{
     mainClass.set("Application")
 }
+
+dependencies {
+    implementation group: 'com.googlecode.lanterna', name:
+            'lanterna', version: '3.1.1'
+}
