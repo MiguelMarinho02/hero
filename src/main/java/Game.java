@@ -1,3 +1,4 @@
+import com.MiguelMarinho02.hero.Hero;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextCharacter;
 import com.googlecode.lanterna.input.KeyStroke;
@@ -11,8 +12,7 @@ import java.io.IOException;
 
 class Game {
     Screen screen;
-    private int x = 10;
-    private int y = 10;
+    Hero hero = new Hero(10, 10);
     Game(){
         try{
             TerminalSize terminalSize = new TerminalSize(40, 20);
@@ -28,21 +28,21 @@ class Game {
     }
     private void draw() throws IOException {
         screen.clear();
-        screen.setCharacter(x, y, TextCharacter.fromCharacter('X')[0]);
+        hero.draw(screen);
         screen.refresh();
     }
     private void processKey(KeyStroke key) {
         if (key.getKeyType() == KeyType.ArrowUp){
-            y--;
+            hero.moveUp();
         }
         if (key.getKeyType() == KeyType.ArrowDown){
-            y++;
+            hero.moveDown();
         }
         if (key.getKeyType() == KeyType.ArrowRight){
-            x++;
+            hero.moveRight();
         }
         if (key.getKeyType() == KeyType.ArrowLeft){
-            x--;
+            hero.moveLeft();
         }
         if (key.getKeyType() == KeyType.Character && key.getCharacter() == 'q'){
             try {
