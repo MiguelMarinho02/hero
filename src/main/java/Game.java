@@ -1,4 +1,5 @@
 import com.MiguelMarinho02.hero.Hero;
+import com.MiguelMarinho02.hero.Position;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextCharacter;
 import com.googlecode.lanterna.input.KeyStroke;
@@ -33,16 +34,16 @@ class Game {
     }
     private void processKey(KeyStroke key) {
         if (key.getKeyType() == KeyType.ArrowUp){
-            hero.moveUp();
+            moveHero(hero.moveUp());
         }
         if (key.getKeyType() == KeyType.ArrowDown){
-            hero.moveDown();
+            moveHero(hero.moveDown());
         }
         if (key.getKeyType() == KeyType.ArrowRight){
-            hero.moveRight();
+            moveHero(hero.moveRight());
         }
         if (key.getKeyType() == KeyType.ArrowLeft){
-            hero.moveLeft();
+            moveHero(hero.moveLeft());
         }
         if (key.getKeyType() == KeyType.Character && key.getCharacter() == 'q'){
             try {
@@ -52,6 +53,10 @@ class Game {
             }
         }
         System.out.println(key);
+    }
+
+    private void moveHero(Position position){
+        hero.setPosition(position);
     }
     public void run() throws IOException {
         while(true){
