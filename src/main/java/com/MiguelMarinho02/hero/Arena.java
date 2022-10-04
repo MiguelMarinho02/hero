@@ -1,5 +1,9 @@
 package com.MiguelMarinho02.hero;
 
+import com.googlecode.lanterna.TerminalPosition;
+import com.googlecode.lanterna.TerminalSize;
+import com.googlecode.lanterna.TextColor;
+import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
@@ -38,9 +42,6 @@ public class Arena {
         if(canHeroMove(position)){
             hero.setPosition(position);
         }
-        else{
-            System.out.println("Invalid Position");
-        }
     }
 
     private boolean canHeroMove(Position position){
@@ -53,10 +54,12 @@ public class Arena {
         return true;
     }
 
-    public void draw(Screen screen) throws IOException {
-        screen.clear();
-        hero.draw(screen);
-        screen.refresh();
+    public void draw(TextGraphics graphics) throws IOException {
+        graphics.setBackgroundColor(TextColor.Factory.fromString("#336699"));
+        graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(width * 2, height * 2), ' ');
+        graphics.putString(new TerminalPosition(hero.getX() * 2, hero.getY() * 2), "\\/");
+        graphics.putString(new TerminalPosition(hero.getX() * 2, hero.getY() * 2 + 1), "/\\");
+        hero.draw(graphics);
     }
 
 }
