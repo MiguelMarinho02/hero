@@ -13,8 +13,8 @@ import java.io.IOException;
 public class Arena {
     private int width;
     private int height;
-    //private Screen screen;
     private Hero hero = new Hero(10, 10);
+    private Position position = new Position(hero.getX(),hero.getY());
 
     public Arena(int a, int b){
         width = a;
@@ -57,8 +57,8 @@ public class Arena {
     public void draw(TextGraphics graphics) throws IOException {
         graphics.setBackgroundColor(TextColor.Factory.fromString("#336699"));
         graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(width * 2, height * 2), ' ');
-        graphics.putString(new TerminalPosition(hero.getX() * 2, hero.getY() * 2), "\\/");
-        graphics.putString(new TerminalPosition(hero.getX() * 2, hero.getY() * 2 + 1), "/\\");
+        graphics.putString(new TerminalPosition(position.getX() * 2, position.getY() * 2), "\\/");
+        graphics.putString(new TerminalPosition(position.getX() * 2, position.getY() * 2 + 1), "/\\");
         hero.draw(graphics);
     }
 
