@@ -1,3 +1,4 @@
+import com.MiguelMarinho02.hero.Arena;
 import com.MiguelMarinho02.hero.Hero;
 import com.MiguelMarinho02.hero.Position;
 import com.googlecode.lanterna.TerminalSize;
@@ -12,8 +13,8 @@ import com.googlecode.lanterna.terminal.Terminal;
 import java.io.IOException;
 
 class Game {
-    Screen screen;
-    Hero hero = new Hero(10, 10);
+    private Screen screen;
+    private Arena arena = new Arena(30,30);
     Game(){
         try{
             TerminalSize terminalSize = new TerminalSize(40, 20);
@@ -29,22 +30,10 @@ class Game {
     }
     private void draw() throws IOException {
         screen.clear();
-        hero.draw(screen);
+        arena.draw(screen);
         screen.refresh();
     }
-    private void processKey(KeyStroke key) {
-        if (key.getKeyType() == KeyType.ArrowUp){
-            moveHero(hero.moveUp());
-        }
-        if (key.getKeyType() == KeyType.ArrowDown){
-            moveHero(hero.moveDown());
-        }
-        if (key.getKeyType() == KeyType.ArrowRight){
-            moveHero(hero.moveRight());
-        }
-        if (key.getKeyType() == KeyType.ArrowLeft){
-            moveHero(hero.moveLeft());
-        }
+    private void processKey(KeyStroke key) throws IOException {
         if (key.getKeyType() == KeyType.Character && key.getCharacter() == 'q'){
             try {
                 screen.close();
@@ -52,12 +41,9 @@ class Game {
                 throw new RuntimeException(e);
             }
         }
-        System.out.println(key);
+        arena.processKey(key);
     }
 
-    private void moveHero(Position position){
-        hero.setPosition(position);
-    }
     public void run() throws IOException {
         while(true){
             draw();
