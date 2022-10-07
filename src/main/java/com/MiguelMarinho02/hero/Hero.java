@@ -6,11 +6,10 @@ import com.googlecode.lanterna.screen.Screen;
 import org.w3c.dom.Text;
 
 public class Hero {
-    private Position position = new Position(10,10);
+    private Position position;
 
     public Hero(int a, int b){
-        position.setX(a);
-        position.setY(b);
+        position = new Position(a,b);
     }
 
     public int getY() {
