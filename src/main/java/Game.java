@@ -41,6 +41,14 @@ class Game {
                 throw new RuntimeException(e);
             }
         }
+        if(arena.verifyMonsterCollisions()){
+            System.out.println("Game Over");
+            screen.close();
+        }
+        if(arena.isCoinsEmpty() == true && key.getKeyType() != KeyType.EOF){
+            System.out.println("You won!! Congrats!!");
+            screen.close();
+        }
         arena.processKey(key);
     }
 
