@@ -61,7 +61,6 @@ public class Arena {
 
         moveMonsters();
         retrieveCoins();
-        System.out.println(key);
     }
 
     private void moveHero(Position position) {
