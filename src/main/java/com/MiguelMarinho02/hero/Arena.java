@@ -12,19 +12,21 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 public class Arena {
     private int width;
     private int height;
     private Hero hero = new Hero(10, 10);
     private Position position = new Position(hero.getX(),hero.getY());
-
     private List<Wall> walls;
+    private List<Coin> coins;
 
     public Arena(int a, int b){
         width = a;
         height = b;
         this.walls = createWalls();
+        this.coins = createCoins();
     }
 
     private List<Wall> createWalls() {
@@ -53,7 +55,7 @@ public class Arena {
         if (key.getKeyType() == KeyType.ArrowLeft){
             moveHero(hero.moveLeft());
         }
-
+        retrieveCoins();
         System.out.println(key);
     }
 
@@ -72,6 +74,24 @@ public class Arena {
         return true;
     }
 
+    private List<Coin> createCoins() {
+        Random random = new Random();
+        ArrayList<Coin> coins = new ArrayList<>();
+        for (int i = 0; i < 5; i++)
+            coins.add(new Coin(random.nextInt(width - 2) + 1,
+                    random.nextInt(height - 2) + 1));
+        return coins;
+    }
+
+    private void retrieveCoins(){
+        for(Coin coin : coins){
+            if(hero.getPosition().equals(coin.getPosition())){
+                coins.remove(coin);
+                break;
+            }
+        }
+    }
+
     public void draw(TextGraphics graphics) throws IOException {
         graphics.setBackgroundColor(TextColor.Factory.fromString("#336699"));
         graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(width * 2, height * 2), ' ');
@@ -80,6 +100,10 @@ public class Arena {
         hero.draw(graphics);
         for (Wall wall : walls)
             wall.draw(graphics);
+
+        for (Coin coin : coins){
+            coin.draw(graphics);
+        }
     }
 
 }
